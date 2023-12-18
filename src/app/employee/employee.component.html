@@ -150,33 +150,24 @@
                                         <mat-tab-group>
                                           <!-- Attachments Tab -->
                                           <mat-tab label="Attachments">
-                                            <form class="example-container" [formGroup]="attachmentForm">
                                               <div class="form-field-spacer"></div>
-                                              <mat-form-field appearance="outline">
-                                                <mat-label>Enter Attachment Description</mat-label>
-                                                <input matInput type="text" placeholder="description" formControlName="description">
-                                                <mat-error *ngIf="attachmentForm.get('description')?.hasError('required')">Description is required</mat-error>
-                                              </mat-form-field>
                                     
                                               <div>
                                                 <label for="personalImage" class="file-input-label">Choose Personal Image</label>
-                                                <input type="file" id="personalImage" name="personalImage" (change)="onFileSelected($event, 'personalImage')" accept="image/*" formControlName="personalImage">
+                                                <input type="file" id="personalImage" name="personalImage" (change)="onFileSelected($event)" accept="image/*" >
                                               </div>
                                               <div>
                                                 <label for="salaryPdf" class="file-input-label">Choose Salary PDF</label>
-                                                <input type="file" id="salaryPdf" name="salaryPdf" (change)="onFileSelected($event, 'salaryPdf')" accept="pdf/*" formControlName="salaryPdf">
+                                                <input type="file" id="salaryPdf" name="salaryPdf" (change)="onFileSelected($event)" accept="pdf/*" >
                                               </div>
                                               <div>
                                                 <label for="cv" class="file-input-label">Choose CV</label>
-                                                <input type="file" id="cv" name="cv" (change)="onFileSelected($event, 'cv')" accept="pdf/*" formControlName="cv">
+                                                <input type="file" id="cv" name="cv" (change)="onFileSelected($event)" accept="pdf/*" >
                                               </div>
-                                              
-                                              
-                                    
+
                                               <div class="dialog-footer">
-                                                <button mat-raised-button color="primary" (click)="addAttachment()" [disabled]="!attachmentForm.valid">Upload Attachments</button>
+                                                <button mat-raised-button color="primary" (click)="addAttachment()" >Upload Attachments</button>
                                               </div>
-                                            </form>
                                           </mat-tab>
                                     
                                           <!-- Employee Data Tab -->
@@ -204,12 +195,6 @@
                                                 <mat-label>Enter Employee Salary</mat-label>
                                                 <input matInput type="number" placeholder="salary" formControlName="salary">
                                                 <mat-error *ngIf="form.get('salary')?.hasError('required')">salary is required</mat-error>
-                                              </mat-form-field>
-    
-                                              <mat-form-field appearance="outline">
-                                                <mat-label>Enter Employee image</mat-label>
-                                                <input matInput type="text" placeholder="image" formControlName="image">
-                                                <mat-error *ngIf="form.get('image')?.hasError('required')">image is required</mat-error>
                                               </mat-form-field>
     
                                               <mat-form-field appearance="outline">
@@ -243,9 +228,7 @@
                                       </div>
                                     </ng-template>
                                     
-                                    
-
-
+                                  
                         </div>
                     </div>
                 </div>

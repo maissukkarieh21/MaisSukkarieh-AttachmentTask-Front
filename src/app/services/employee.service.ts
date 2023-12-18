@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -42,12 +42,17 @@ export class EmployeeService {
     return this.http.get(url, { responseType: 'arraybuffer' });
   }
 
-  addEmployee(employee:any):Observable<any>{
-    return this.http.post('https://localhost:7051/api/Employee/addEmployee',employee)
+  
+  addEmployee(employeeDto: any): Observable<any> {
+    return this.http.post('https://localhost:7051/api/Employee/addEmployee', employeeDto);
   }
+  
 
-  addAttachment(formData: FormData): Observable<any> {
+  addAttachment(attachments: File[]): Observable<any> {
+    const formData = new FormData();
+    for (const attachment of attachments) {
+      formData.append('Files', attachment);
+    }
     return this.http.post<string>(`https://localhost:7051/api/Attachment/addAttachment/`, formData);
   }
-
 }
