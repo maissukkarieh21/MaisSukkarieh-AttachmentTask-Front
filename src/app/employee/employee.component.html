@@ -1,0 +1,254 @@
+
+<body class="fix-header card-no-border fix-sidebar">
+    <div id="main-wrapper">
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">Employees</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Employees</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-12" >
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Employees</h4>
+                                <button style="background-color: green;" class="btnn"(click)="OpenDialogAdd()" aria-label="Example icon button with a delete icon">
+                                    <mat-icon  style="font-size: 20px;" class="icon">+</mat-icon>
+                                  </button>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Employee Id</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email</th>
+                                                <th>Salary</th>
+                                                <th>Phone</th>
+                                                <th>Employee Name</th>
+                                                <th>Hire Date</th>
+                                                <th>Address</th>
+                                                <th>Attachments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let employee of employees">
+                                            <tr>
+                                                <td>{{ employee.id }}</td>
+                                                <td>{{ employee.firstName }}</td>
+                                                <td>{{ employee.lastName }}</td>
+                                                <td>{{ employee.email }}</td>
+                                                <td>{{ employee.salary }}</td>
+                                                <td>{{ employee.phone }}</td>
+                                                <td>{{ employee.employeeName }}</td>
+                                                <td>{{ employee.hireDate | date }}</td>
+                                                <td>{{ employee.address }}</td>
+                                                <td>
+                                                    <button (click)="getAttachmentsForEmployee(employee.id)">Preview Attachments</button>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>
+                                
+                            </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                    <!--
+                                    <ng-template #callCreateDialog>
+                                      <div class="mat-dialog-container">
+                                        <div class="dialog-header">
+                                          <h2>Add Employee</h2>
+                                        </div>
+                                        <form class="example-container" [formGroup]="form">
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Enter Employee First Name</mat-label>
+                                            <input matInput type="text" placeholder="first name" formControlName="firstName">
+                                            <mat-error *ngIf="form.get('firstName')?.hasError('required')">fisrt name is required</mat-error>
+                                          </mat-form-field>
+
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Enter Employee Last Name</mat-label>
+                                            <input matInput type="text" placeholder="last name" formControlName="lastName">
+                                            <mat-error *ngIf="form.get('lastName')?.hasError('required')">last name is required</mat-error>
+                                          </mat-form-field>
+
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Email</mat-label>
+                                            <input matInput type="text" placeholder="email" formControlName="email">
+                                            <mat-error *ngIf="form.get('email')?.hasError('required')">email is required</mat-error>
+                                          </mat-form-field>
+
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Enter Employee Salary</mat-label>
+                                            <input matInput type="number" placeholder="salary" formControlName="salary">
+                                            <mat-error *ngIf="form.get('salary')?.hasError('required')">salary is required</mat-error>
+                                          </mat-form-field>
+
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Enter Employee image</mat-label>
+                                            <input matInput type="text" placeholder="image" formControlName="image">
+                                            <mat-error *ngIf="form.get('image')?.hasError('required')">image is required</mat-error>
+                                          </mat-form-field>
+
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Enter Employee Phone Number</mat-label>
+                                            <input matInput type="text" placeholder="phone" formControlName="phone">
+                                            <mat-error *ngIf="form.get('phone')?.hasError('required')">phone is required</mat-error>
+                                          </mat-form-field>
+
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Enter Employee name</mat-label>
+                                            <input matInput type="text" placeholder="employee name" formControlName="employeeName">
+                                            <mat-error *ngIf="form.get('employeeName')?.hasError('required')">employee name is required</mat-error>
+                                          </mat-form-field>
+
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Enter Employee Address</mat-label>
+                                            <input matInput type="text" placeholder="address" formControlName="address">
+                                            <mat-error *ngIf="form.get('address')?.hasError('required')">address is required</mat-error>
+                                          </mat-form-field>
+
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Enter Attachment Description</mat-label>
+                                            <input matInput type="text" placeholder="description" formControlName="description">
+                                            <mat-error *ngIf="form.get('description')?.hasError('required')">address is required</mat-error>
+                                          </mat-form-field>
+
+                                          <div class="form-field-spacer"></div> 
+                                          <div>
+                                            <input type="file" id="personalImage" name="personalImage" (change)="onFileSelected($event, 'personalImage')" accept="image/*">
+                                          </div>
+                                          <div>
+                                            <input type="file" id="salaryPdf" name="salaryPdf" (change)="onFileSelected($event, 'salaryPdf')" accept="pdf/*">
+                                          </div>
+                                          <div>
+                                            <input type="file" id="cv" name="cv" (change)="onFileSelected($event, 'cv')" accept="pdf/*">
+                                          </div>
+                                
+                                  
+                                          <div class="dialog-footer">
+                                            <button mat-raised-button color="primary" (click)="addAttachment()" [disabled]="!form.valid">Add</button>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </ng-template>-->
+
+                                    <ng-template #callCreateDialog>
+                                      <div class="mat-dialog-container">
+                                        <div class="dialog-header">
+                                          <h2>Add Employee</h2>
+                                        </div>
+                                        <mat-tab-group>
+                                          <!-- Attachments Tab -->
+                                          <mat-tab label="Attachments">
+                                            <form class="example-container" [formGroup]="attachmentForm">
+                                              <div class="form-field-spacer"></div>
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Enter Attachment Description</mat-label>
+                                                <input matInput type="text" placeholder="description" formControlName="description">
+                                                <mat-error *ngIf="attachmentForm.get('description')?.hasError('required')">Description is required</mat-error>
+                                              </mat-form-field>
+                                    
+                                              <div>
+                                                <label for="personalImage" class="file-input-label">Choose Personal Image</label>
+                                                <input type="file" id="personalImage" name="personalImage" (change)="onFileSelected($event, 'personalImage')" accept="image/*" formControlName="personalImage">
+                                              </div>
+                                              <div>
+                                                <label for="salaryPdf" class="file-input-label">Choose Salary PDF</label>
+                                                <input type="file" id="salaryPdf" name="salaryPdf" (change)="onFileSelected($event, 'salaryPdf')" accept="pdf/*" formControlName="salaryPdf">
+                                              </div>
+                                              <div>
+                                                <label for="cv" class="file-input-label">Choose CV</label>
+                                                <input type="file" id="cv" name="cv" (change)="onFileSelected($event, 'cv')" accept="pdf/*" formControlName="cv">
+                                              </div>
+                                              
+                                              
+                                    
+                                              <div class="dialog-footer">
+                                                <button mat-raised-button color="primary" (click)="addAttachment()" [disabled]="!attachmentForm.valid">Upload Attachments</button>
+                                              </div>
+                                            </form>
+                                          </mat-tab>
+                                    
+                                          <!-- Employee Data Tab -->
+                                          <mat-tab label="Employee Data">
+                                            <form class="example-container" [formGroup]="form">
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Enter Employee First Name</mat-label>
+                                                <input matInput type="text" placeholder="first name" formControlName="firstName">
+                                                <mat-error *ngIf="form.get('firstName')?.hasError('required')">fisrt name is required</mat-error>
+                                              </mat-form-field>
+    
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Enter Employee Last Name</mat-label>
+                                                <input matInput type="text" placeholder="last name" formControlName="lastName">
+                                                <mat-error *ngIf="form.get('lastName')?.hasError('required')">last name is required</mat-error>
+                                              </mat-form-field>
+    
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Email</mat-label>
+                                                <input matInput type="text" placeholder="email" formControlName="email">
+                                                <mat-error *ngIf="form.get('email')?.hasError('required')">email is required</mat-error>
+                                              </mat-form-field>
+    
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Enter Employee Salary</mat-label>
+                                                <input matInput type="number" placeholder="salary" formControlName="salary">
+                                                <mat-error *ngIf="form.get('salary')?.hasError('required')">salary is required</mat-error>
+                                              </mat-form-field>
+    
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Enter Employee image</mat-label>
+                                                <input matInput type="text" placeholder="image" formControlName="image">
+                                                <mat-error *ngIf="form.get('image')?.hasError('required')">image is required</mat-error>
+                                              </mat-form-field>
+    
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Enter Employee Phone Number</mat-label>
+                                                <input matInput type="text" placeholder="phone" formControlName="phone">
+                                                <mat-error *ngIf="form.get('phone')?.hasError('required')">phone is required</mat-error>
+                                              </mat-form-field>
+    
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Enter Employee name</mat-label>
+                                                <input matInput type="text" placeholder="employee name" formControlName="employeeName">
+                                                <mat-error *ngIf="form.get('employeeName')?.hasError('required')">employee name is required</mat-error>
+                                              </mat-form-field>
+    
+                                              <mat-form-field appearance="outline">
+                                                <mat-label>Enter Employee Address</mat-label>
+                                                <input matInput type="text" placeholder="address" formControlName="address">
+                                                <mat-error *ngIf="form.get('address')?.hasError('required')">address is required</mat-error>
+                                              </mat-form-field>
+    
+                                              
+                                    
+                                              <div class="form-field-spacer"></div>
+                                    
+                                              <div class="dialog-footer">
+                                                <button mat-raised-button color="primary" (click)="addEmployee()" [disabled]="!form.valid">Add Employee</button>
+                                              </div>
+                                            </form>
+                                          </mat-tab>
+                                        </mat-tab-group>
+                                      </div>
+                                    </ng-template>
+                                    
+                                    
+
+
+                        </div>
+                    </div>
+                </div>
+            <footer class="footer"> © 2021 Adminwrap by <a href="https://www.wrappixel.com/">wrappixel.com</a> </footer>
+</body>
+

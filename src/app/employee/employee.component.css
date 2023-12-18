@@ -1,0 +1,167 @@
+.btn-custom {
+    background-color:   #fbf9ff; /* Change to your desired color */
+    color: #2e2e2e;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-custom:hover {
+    background-color:   #3cc78f; /* Change to a darker shade for hover effect */
+  }
+  .mat-stepper-horizontal {
+  margin-top: 8px;
+  }
+  .hh{
+  padding: 240px   1000px;
+  }
+  .mat-dialog-container {
+    padding: 30px;
+    width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+    
+  }
+  
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .dialog-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+  }
+  
+  .example-container {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    width: 50%;
+    margin-bottom: 1px;
+  }
+  .custom-button {
+    align-self: flex-end;
+    background-color: #3cc78f;
+    color: #ffffff;
+  }
+  ::ng-deep .mat-form-field-appearance-fill .mat-form-field-subscript-wrapper .mat-error {
+    color: #ff0000; /* Red color for error message */
+  }
+  
+  
+  /* Add this CSS to your component's CSS file */
+  .edit-button,
+  .delete-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  
+  margin: 0;
+  font-size: 12px;
+  color: #151a1e;
+  transition: color 0.2s, background-color 0.2s;
+  
+  }
+  
+  .edit-button:hover,
+  .delete-button:hover {
+  color: #e74c3c;
+  background-color: rgba(231, 76, 60, 0.1);
+  }
+  
+  .edit-button i,
+  .delete-button i {
+  vertical-align:middle;
+  }
+  
+  .edit-button span,
+  .delete-button span {
+  display: none;
+  margin-left: 5px;
+  }
+  
+  .form-field-spacer {
+  margin-bottom: 10px;
+  }
+  
+  .example-full-width {
+  width:50%;
+  }
+  .hh {
+  position: absolute;
+  top: 191px;
+  right: 81px;
+  padding: 4px 8px;
+  border-radius: 0px;
+  }
+  .mat-icon{
+  color: #fff;
+  background: none;
+  
+  }
+  .button {
+  background-color: rgb(203, 23, 23);
+  font-size: 10px;
+  width: 80px;
+  height: 40px;
+  text-align: center;
+  border: none;
+  }
+  .add-button {
+  background-color: green;
+  
+  }
+  .demo-section + .demo-section {
+  margin-top: 16px;
+  }
+  .custom-btn {
+  background-color: #5bc1ac;
+  }
+  .hhh{
+  position: absolute;
+  top: 192px;
+  left: 108px;
+  padding: 4px 8px;
+  border-radius: 0px;
+  }
+  .button-check {
+  background-color: #7f90f3;
+  text-align: center;
+  font-size: 10px;
+  width:80px;
+  height:40px;
+  border: none;
+  }
+  .featured-block {
+  text-align: center;
+  transition: all 1.5s ease;
+  min-height: 161px;
+  padding: inherit;
+  }
+  ::ng-deep .btn-custom,
+  ::ng-deep .edit-button,
+  ::ng-deep .delete-button,
+  ::ng-deep .add-button,
+  ::ng-deep .button-check {
+    border-radius: 4px; 
+  }
+  
+  .mat-dialog-container .btn-custom {
+  border-radius: 4px !important;
+  }
+  
+  .btnn{
+  border-radius: 4%;
+  height: 40px;
+  width: 60px;
+  font-size: 10px;
+  margin-bottom: 1%;
+  border: none;
+  }
+  
