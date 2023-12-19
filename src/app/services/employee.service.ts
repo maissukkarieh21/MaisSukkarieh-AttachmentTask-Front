@@ -22,8 +22,7 @@ export class EmployeeService {
     for (const attachment of attachments) {
       formData.append('Files', attachment);
     }
-    //const headers = new HttpHeaders();
-    //headers.append('Content-Type', 'multipart/form-data');
+
   
     return this.http.post(`https://localhost:7051/api/Employee/addEmployeeWithAttachments/`, formData);
   }
@@ -37,15 +36,19 @@ export class EmployeeService {
     return this.http.get<any[]>('https://localhost:7051/api/Attachment/getAttachmentsByEmployee/'+id)
   }
   
-  getAttachmentContentById(id: number): Observable<ArrayBuffer> {
-    const url = 'https://localhost:7051/api/Attachment/getAttachmentsById/'+id;
+  getAttachmentByEmployeeIdAndAttachmentId(employeeId:number,id: number): Observable<ArrayBuffer> {
+    const url = `https://localhost:7051/api/Attachment/GetAttachmentsByEmployeeIdAndId/${employeeId}/${id}`;
     return this.http.get(url, { responseType: 'arraybuffer' });
   }
 
-  
-  addEmployee(employeeDto: any): Observable<any> {
-    return this.http.post('https://localhost:7051/api/Employee/addEmployee', employeeDto);
+  getAttachmentById(id:number): Observable<ArrayBuffer> {
+    const url = `https://localhost:7051/api/Attachment/GetAttachmentsByEmployeeIdAndId/${id}`;
+    return this.http.get(url, { responseType: 'arraybuffer' });
   }
+  
+  //addEmployee(employeeDto: any): Observable<any> {
+    //return this.http.post('https://localhost:7051/api/Employee/addEmployee', employeeDto);
+  //}
   
 
   addAttachment(attachments: File[]): Observable<any> {
@@ -54,5 +57,21 @@ export class EmployeeService {
       formData.append('Files', attachment);
     }
     return this.http.post<string>(`https://localhost:7051/api/Attachment/addAttachment/`, formData);
+  }
+//---------------------------------------------------------------------------------------------------
+  downloadAttachment(attachmentId: number): Observable<Blob> {
+    return this.http.get(`https://localhost:7051/api/Attachment/downloadAttachment/${attachmentId}`, { responseType: 'blob' });
+  }
+
+  uploadAttachment(attachments: File[]): Observable<any> {
+    const formData = new FormData();
+    for (const attachment of attachments) {
+      formData.append('Files', attachment);
+    }
+    return this.http.post<string>(`https://localhost:7051/api/AttachmentsGroup/uploadAttachments/`, formData);
+  }
+
+  addEmployee(employeeData:any):Observable<any>{
+    return this.http.post('https://localhost:7051/api/AttachmentsGroup/addEmployeeWithAttachments/', employeeData);
   }
 }

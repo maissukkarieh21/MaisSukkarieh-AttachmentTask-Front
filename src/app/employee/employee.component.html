@@ -35,6 +35,7 @@
                                                 <th>Hire Date</th>
                                                 <th>Address</th>
                                                 <th>Attachments</th>
+
                                             </tr>
                                         </thead>
                                         <tbody *ngFor="let employee of employees">
@@ -48,6 +49,8 @@
                                                 <td>{{ employee.employeeName }}</td>
                                                 <td>{{ employee.hireDate | date }}</td>
                                                 <td>{{ employee.address }}</td>
+
+
                                                 <td>
                                                     <button (click)="getAttachmentsForEmployee(employee.id)">Preview Attachments</button>
                                                 </td>
@@ -227,8 +230,11 @@
                                         </mat-tab-group>
                                       </div>
                                     </ng-template>
-                                    
-                                  
+                                  <ng-template #attachmentPreviewDialog>
+                                    <div *ngFor="let attachment of attachments">
+                                      <button>{{attachment.name}}</button>
+                                    </div>
+                                  </ng-template>
                         </div>
                     </div>
                 </div>

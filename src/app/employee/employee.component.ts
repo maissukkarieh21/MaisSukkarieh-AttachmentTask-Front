@@ -16,8 +16,11 @@ export class EmployeeComponent implements OnInit{
   selectedEmployeeAttachments: any[] = [];
   attachments:any[]=[]
   documentContent: any;
-  temporaryEmployeeId: string | null = null;
+  //attachmentGroupId: any;
+  attachmentsGroupId:any
   selectedFiles : File[] = []
+  attachment:any;
+  attachmentIds: any;
 
   @ViewChild('callCreateDialog') callCreateDialog! :TemplateRef<any>
   @ViewChild('attachmentPreviewDialog') attachmentPreviewDialog!: TemplateRef<any>;
@@ -53,12 +56,13 @@ export class EmployeeComponent implements OnInit{
   
 
   addAttachment(): void {
-    this.employeeService.addAttachment(this.selectedFiles).subscribe(
-      (response: any) => {
-        const temporaryEmployeeId = response?.temporaryEmployeeId;
-        this.temporaryEmployeeId = temporaryEmployeeId;
+    this.employeeService.uploadAttachment(this.selectedFiles).subscribe(
+      (attachmentsGroupId) => {
+        //const attachmentGroupId = response?.attachmentGroupId;
+        this.attachmentsGroupId = attachmentsGroupId;
+        this.prepareEmployeeData(attachmentsGroupId);
         this.toastr.success('Attachment added successfully.', 'Success');
-        console.log('Attachment added successfully. Temporary Employee ID:', temporaryEmployeeId);
+        console.log('Attachment added successfully. attachment Group Id:', attachmentsGroupId);
         this.getAllEmployees();
       },
       (error) => {
@@ -81,25 +85,23 @@ export class EmployeeComponent implements OnInit{
   
 
   addEmployee(): void {
-    const employeeData = this.prepareEmployeeData();
+    const employeeData = this.prepareEmployeeData(this.attachmentsGroupId);
     this.employeeService.addEmployee(employeeData).subscribe(
       (response) => {
-
         console.log(employeeData);
         console.log('Employee added successfully. Employee ID:', response.EmployeeId);
-        this.getAllEmployees(); 
+        this.getAllEmployees();
       },
       (error) => {
         console.log(employeeData);
-        console.log(this.prepareEmployeeData())
         console.error('Error while adding employee:', error);
         console.log('Employee added successfully. Employee ID:', error.EmployeeId);
         this.getAllEmployees();
       }
     );
   }
-
-  prepareEmployeeData(): any {
+  
+  prepareEmployeeData(attachmentGroupId: number): any {
     const formData = this.form.value;
     return {
       firstName: formData.firstName,
@@ -109,13 +111,10 @@ export class EmployeeComponent implements OnInit{
       phone: formData.phone,
       employeeName: formData.employeeName,
       address: formData.address,
-      temporaryEmployeeId: this.temporaryEmployeeId,
+      attachmentGroupId: attachmentGroupId
     };
   }
 
-  
-  
-  
   openAttachmentPreviewDialog() {
     if (this.selectedEmployeeAttachments && this.selectedEmployeeAttachments.length > 0) {
       this.dialog.open(this.attachmentPreviewDialog, {
@@ -124,15 +123,11 @@ export class EmployeeComponent implements OnInit{
     }
   }
 
-  openDocumentPreview(employeeId: number) {
-    this.getAttachmentsForEmployee(employeeId);
-  }
-
   getAttachmentsForEmployee(employeeId: number) {
     this.employeeService.getAttachments(employeeId).subscribe(
       (attachments) => {
-        const documentAttachment = attachments[0];
-        this.employeeService.getAttachmentContentById(documentAttachment.id).subscribe(
+        //const documentAttachment = attachments[0];
+        this.employeeService.getAttachmentById(employeeId).subscribe(
           (content) => {
             this.documentContent = content;
           },
@@ -146,5 +141,28 @@ export class EmployeeComponent implements OnInit{
       }
     );
   }
-  
+
+  openDocumentPreview(employeeId: number, attachmentId: number) {
+    this.dialog.open(this.attachmentPreviewDialog);
+    this.employeeService.getAttachmentByEmployeeIdAndAttachmentId(employeeId, attachmentId).subscribe((attachment) => {
+      this.attachment = attachment;
+    });
+  }
+
+
+  downloadAttachment(attachmentId: number): void {
+    this.employeeService.downloadAttachment(attachmentId).subscribe(
+      (data) => {
+        const blob = new Blob([data], { type: 'application/octet-stream' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'attachmentFileName';
+        link.click();
+      },
+      (error) => {
+        console.error('Error downloading attachment:', error);
+      }
+    );
+  }
+
 }
