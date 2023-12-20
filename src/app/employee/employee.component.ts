@@ -16,7 +16,6 @@ export class EmployeeComponent implements OnInit{
   selectedEmployeeAttachments: any[] = [];
   attachments:any[]=[]
   documentContent: any;
-  //attachmentGroupId: any;
   attachmentsGroupId:any
   selectedFiles : File[] = []
   attachment:any;
@@ -58,7 +57,6 @@ export class EmployeeComponent implements OnInit{
   addAttachment(): void {
     this.employeeService.uploadAttachment(this.selectedFiles).subscribe(
       (attachmentsGroupId) => {
-        //const attachmentGroupId = response?.attachmentGroupId;
         this.attachmentsGroupId = attachmentsGroupId;
         this.prepareEmployeeData(attachmentsGroupId);
         this.toastr.success('Attachment added successfully.', 'Success');
@@ -90,12 +88,14 @@ export class EmployeeComponent implements OnInit{
       (response) => {
         console.log(employeeData);
         console.log('Employee added successfully. Employee ID:', response.EmployeeId);
+        this.toastr.success('Employee added successfully.', 'Success');
         this.getAllEmployees();
       },
       (error) => {
         console.log(employeeData);
         console.error('Error while adding employee:', error);
         console.log('Employee added successfully. Employee ID:', error.EmployeeId);
+        this.toastr.error('Error while adding employee.', 'Error');
         this.getAllEmployees();
       }
     );

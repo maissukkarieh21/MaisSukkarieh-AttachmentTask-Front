@@ -14,20 +14,6 @@ export class EmployeeService {
     return this.http.get<any[]>('https://localhost:7051/api/Employee/getEmployeeWithAttachments'+id);
   }
 
-  addEmployeeWithAttachments(employee: any, attachments: File[]): Observable<any> {
-    const formData = new FormData();
-    Object.keys(employee).forEach((key) => {
-      formData.append(key, employee[key]);
-    });
-    for (const attachment of attachments) {
-      formData.append('Files', attachment);
-    }
-
-  
-    return this.http.post(`https://localhost:7051/api/Employee/addEmployeeWithAttachments/`, formData);
-  }
-  
-
   getAllEmployees(): Observable<any[]> {
     return this.http.get<any[]>('https://localhost:7051/api/Employee/getAllEmployees');
   }
@@ -45,19 +31,8 @@ export class EmployeeService {
     const url = `https://localhost:7051/api/Attachment/GetAttachmentsByEmployeeIdAndId/${id}`;
     return this.http.get(url, { responseType: 'arraybuffer' });
   }
-  
-  //addEmployee(employeeDto: any): Observable<any> {
-    //return this.http.post('https://localhost:7051/api/Employee/addEmployee', employeeDto);
-  //}
-  
 
-  addAttachment(attachments: File[]): Observable<any> {
-    const formData = new FormData();
-    for (const attachment of attachments) {
-      formData.append('Files', attachment);
-    }
-    return this.http.post<string>(`https://localhost:7051/api/Attachment/addAttachment/`, formData);
-  }
+  
 //---------------------------------------------------------------------------------------------------
   downloadAttachment(attachmentId: number): Observable<Blob> {
     return this.http.get(`https://localhost:7051/api/Attachment/downloadAttachment/${attachmentId}`, { responseType: 'blob' });
