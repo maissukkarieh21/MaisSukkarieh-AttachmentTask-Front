@@ -103,6 +103,8 @@ export class EmployeeComponent implements OnInit{
   
   prepareEmployeeData(attachmentGroupId: number): any {
     const formData = this.form.value;
+    console.log('formData:', formData);
+
     return {
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -111,8 +113,9 @@ export class EmployeeComponent implements OnInit{
       phone: formData.phone,
       employeeName: formData.employeeName,
       address: formData.address,
-      attachmentGroupId: attachmentGroupId
+      attachmentsGroupId:this.attachmentsGroupId
     };
+
   }
 
   openAttachmentPreviewDialog() {
