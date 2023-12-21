@@ -8,8 +8,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { HttpClientModule } from '@angular/common/http';
-import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
-
+//import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
     ToastrModule.forRoot(),
     NgxDocViewerModule,
     HttpClientModule,
-    PdfJsViewerModule
+    PdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

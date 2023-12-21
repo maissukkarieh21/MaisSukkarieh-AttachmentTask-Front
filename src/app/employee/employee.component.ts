@@ -20,9 +20,11 @@ export class EmployeeComponent implements OnInit{
   selectedFiles : File[] = []
   attachment:any;
   attachmentIds: any;
+  pdfSrc: any;
 
   @ViewChild('callCreateDialog') callCreateDialog! :TemplateRef<any>
   @ViewChild('attachmentPreviewDialog') attachmentPreviewDialog!: TemplateRef<any>;
+  @ViewChild('preview') preview!: TemplateRef<any>;
 
 
   constructor(private toastr: ToastrService,private dialog:MatDialog , private employeeService : EmployeeService) {}
@@ -132,6 +134,7 @@ export class EmployeeComponent implements OnInit{
       }
     );
   }
+  
 
   getAttachmentsByGroupId(groupId:number):void{
     this.dialog.open(this.attachmentPreviewDialog);
@@ -155,48 +158,23 @@ export class EmployeeComponent implements OnInit{
   }
 
   previewFile(attachment: any): void {
-    const fileData = this.base64ToUint8Array(attachment.fileData);
-    console.log(`Previewing file: ${attachment.name}`);
+    const decodedData = atob(attachment.fileData);
+    this.pdfSrc = { data: decodedData, format: 'pdf', };
+    this.dialog.open(this.preview);
   }
-
   private base64ToUint8Array(base64: string): Uint8Array {
     const binaryString = window.atob(base64);
+    console.log('Decoded Uint8Array:', binaryString);
     const len = binaryString.length;
     const bytes = new Uint8Array(len);
-
+  
     for (let i = 0; i < len; ++i) {
       bytes[i] = binaryString.charCodeAt(i);
     }
-
     return bytes;
   }
 
-  getAttachmentsForEmployee(employeeId: number) {
-    this.employeeService.getAttachments(employeeId).subscribe(
-      (attachments) => {
-        this.employeeService.getAttachmentById(employeeId).subscribe(
-          (content) => {
-            this.documentContent = content;
-          },
-          (error) => {
-            console.error('Error retrieving document content:', error);
-          }
-        );
-      },
-      (error) => {
-        console.error('Error retrieving attachments:', error);
-      }
-    );
-  }
-
-  openDocumentPreview(employeeId: number, attachmentId: number) {
-    this.dialog.open(this.attachmentPreviewDialog);
-    this.employeeService.getAttachmentByEmployeeIdAndAttachmentId(employeeId, attachmentId).subscribe((attachment) => {
-      this.attachment = attachment;
-    });
-  }
-
-
+  
   
 
 }

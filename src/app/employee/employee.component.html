@@ -231,9 +231,22 @@
                                       </div>
                                     </ng-template>
                                     <ng-template #attachmentPreviewDialog>
-                                      <div class="mat-dialog-container">
+                                      <div class="mat-dialog-container2">
                                         <div *ngFor="let attachment of attachments">
                                           <button (click)="previewFile(attachment)">{{ attachment.name }}</button>
+                                        </div>
+                                      </div>
+                                    </ng-template>
+                                    <ng-template #preview let-data="pdfSrc">
+                                      <div class="mat-dialog-container2">
+                                        <button *ngIf="attachment" (click)="downloadAttachment(attachment.id)">Download</button>
+                                        <div>
+                                          <pdf-viewer
+                                            [src]="pdfSrc"
+                                            [render-text]="true"
+                                            [original-size]="true"
+                                            style="width: 1000px; height: 600px"
+                                          ></pdf-viewer>
                                         </div>
                                       </div>
                                     </ng-template>

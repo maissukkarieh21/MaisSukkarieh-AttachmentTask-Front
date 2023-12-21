@@ -164,4 +164,12 @@
   margin-bottom: 1%;
   border: none;
   }
-  
+
+  .mat-dialog-container2 {
+    padding: 30px;
+    width: 1000px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+    
+  }
