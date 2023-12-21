@@ -230,14 +230,13 @@
                                         </mat-tab-group>
                                       </div>
                                     </ng-template>
-                                  <ng-template #attachmentPreviewDialog>
-                                    <div class="mat-dialog-container">
-
-                                    <div *ngFor="let attachment of attachments">
-                                      <button>{{attachment.name}}</button>
-                                    </div>
-                                    </div>
-                                  </ng-template>
+                                    <ng-template #attachmentPreviewDialog>
+                                      <div class="mat-dialog-container">
+                                        <div *ngFor="let attachment of attachments">
+                                          <button (click)="previewFile(attachment)">{{ attachment.name }}</button>
+                                        </div>
+                                      </div>
+                                    </ng-template>
                         </div>
                     </div>
                 </div>

@@ -118,6 +118,34 @@ export class EmployeeComponent implements OnInit{
 
   }
 
+  downloadAttachment(attachmentId: number): void {
+    this.employeeService.downloadAttachment(attachmentId).subscribe(
+      (data) => {
+        const blob = new Blob([data], { type: 'application/octet-stream' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'attachmentFileName';
+        link.click();
+      },
+      (error) => {
+        console.error('Error downloading attachment:', error);
+      }
+    );
+  }
+
+  getAttachmentsByGroupId(groupId:number):void{
+    this.dialog.open(this.attachmentPreviewDialog);
+
+    this.employeeService.getAttachmentsByGroupId(groupId).subscribe(
+      (attachments)=>{
+        this.attachments = attachments;
+        console.log(attachments);
+      }
+      
+    )
+
+  }
+
   openAttachmentPreviewDialog() {
     if (this.selectedEmployeeAttachments && this.selectedEmployeeAttachments.length > 0) {
       this.dialog.open(this.attachmentPreviewDialog, {
@@ -126,10 +154,26 @@ export class EmployeeComponent implements OnInit{
     }
   }
 
+  previewFile(attachment: any): void {
+    const fileData = this.base64ToUint8Array(attachment.fileData);
+    console.log(`Previewing file: ${attachment.name}`);
+  }
+
+  private base64ToUint8Array(base64: string): Uint8Array {
+    const binaryString = window.atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+
+    for (let i = 0; i < len; ++i) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    return bytes;
+  }
+
   getAttachmentsForEmployee(employeeId: number) {
     this.employeeService.getAttachments(employeeId).subscribe(
       (attachments) => {
-        //const documentAttachment = attachments[0];
         this.employeeService.getAttachmentById(employeeId).subscribe(
           (content) => {
             this.documentContent = content;
@@ -153,31 +197,6 @@ export class EmployeeComponent implements OnInit{
   }
 
 
-  downloadAttachment(attachmentId: number): void {
-    this.employeeService.downloadAttachment(attachmentId).subscribe(
-      (data) => {
-        const blob = new Blob([data], { type: 'application/octet-stream' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = 'attachmentFileName';
-        link.click();
-      },
-      (error) => {
-        console.error('Error downloading attachment:', error);
-      }
-    );
-  }
-
-  getAttachmentsByGroupId(groupId:number):void{
-    this.dialog.open(this.attachmentPreviewDialog);
-
-    this.employeeService.getAttachmentsByGroupId(groupId).subscribe(
-      (response)=>{
-        console.log(response);
-      }
-      
-    )
-
-  }
+  
 
 }
