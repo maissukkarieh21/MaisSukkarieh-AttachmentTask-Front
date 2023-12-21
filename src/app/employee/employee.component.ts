@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { EmployeeService } from 'src/app/services/employee.service';
-
+import { ImageViewerConfig, CustomEvent } from 'ngx-image-viewer';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -122,11 +122,12 @@ export class EmployeeComponent implements OnInit{
 
   downloadAttachment(attachmentId: number): void {
     this.employeeService.downloadAttachment(attachmentId).subscribe(
-      (data) => {
-        const blob = new Blob([data], { type: 'application/octet-stream' });
+      (data: Blob) => {
+        const contentDispositionHeader = data.type;
+        const blob = new Blob([data], { type: contentDispositionHeader });
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
-        link.download = 'attachmentFileName';
+        //link.download = 'attachmentFileName';
         link.click();
       },
       (error) => {
@@ -135,18 +136,15 @@ export class EmployeeComponent implements OnInit{
     );
   }
   
-
+  
   getAttachmentsByGroupId(groupId:number):void{
     this.dialog.open(this.attachmentPreviewDialog);
-
     this.employeeService.getAttachmentsByGroupId(groupId).subscribe(
       (attachments)=>{
         this.attachments = attachments;
         console.log(attachments);
       }
-      
     )
-
   }
 
   openAttachmentPreviewDialog() {
@@ -173,6 +171,8 @@ export class EmployeeComponent implements OnInit{
     }
     return bytes;
   }
+
+
 
   
   

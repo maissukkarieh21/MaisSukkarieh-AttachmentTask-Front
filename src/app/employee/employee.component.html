@@ -239,7 +239,7 @@
                                     </ng-template>
                                     <ng-template #preview let-data="pdfSrc">
                                       <div class="mat-dialog-container2">
-                                        <button *ngIf="attachment" (click)="downloadAttachment(attachment.id)">Download</button>
+                                        <button   *ngFor="let attachment of attachments" (click)="downloadAttachment(attachment.id)">Download</button>
                                         <div>
                                           <pdf-viewer
                                             [src]="pdfSrc"
