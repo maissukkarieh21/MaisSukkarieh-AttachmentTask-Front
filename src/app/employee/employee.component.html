@@ -52,7 +52,7 @@
 
 
                                                 <td>
-                                                    <button (click)="getAttachmentsByGroupId(employee.attachmentsGroupId)">Preview Attachments</button>
+                                                    <button style="background-color: rgb(143, 154, 255);" class="preview-btn" (click)="getAttachmentsByGroupId(employee.attachmentsGroupId)">Preview Attachments</button>
                                                 </td>
 
                                             </tr>
@@ -231,15 +231,21 @@
                                       </div>
                                     </ng-template>
                                     <ng-template #attachmentPreviewDialog>
-                                      <div class="mat-dialog-container2">
-                                        <div *ngFor="let attachment of attachments">
-                                          <button (click)="previewFile(attachment)">{{ attachment.name }}</button>
+                                      <div class="mat-dialog-container3">
+                                        <div class="button-container">
+                                          <div *ngFor="let attachment of attachments">
+                                            <button style="background-color: rgb(239, 105, 216);" class="preview-btn2" (click)="previewFile(attachment)">
+                                              {{ attachment.name }}
+                                            </button>
+                                          </div>
                                         </div>
                                       </div>
                                     </ng-template>
+                                    
+                                    
                                     <ng-template #preview let-data="pdfSrc">
-                                      <div class="mat-dialog-container2">
-                                        <button   *ngFor="let attachment of attachments" (click)="downloadAttachment(attachment.id)">Download</button>
+                                      <div class="mat-dialog-container2" >
+                                        <a *ngFor="let attachment of attachments" style='background-color: rgb(192, 188, 192);font-size:20px' class="btnn" download="{{attachment.name}}" (click)="getAttachmentById(attachment.id)"><i class='fa fa-download'></i></a>
                                         <div>
                                           <pdf-viewer
                                             [src]="pdfSrc"
@@ -248,6 +254,14 @@
                                             style="width: 1000px; height: 600px"
                                           ></pdf-viewer>
                                         </div>
+                                      </div>
+                                    </ng-template>
+                                    <ng-template #attachmentPreviewDialog>
+                                      <div class="image-upload-container">
+                                        <div  class="image-preview">
+                                          <img [src]="imageUrl" alt="Preview">
+                                        </div>
+                                        
                                       </div>
                                     </ng-template>
                         </div>

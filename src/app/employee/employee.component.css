@@ -173,3 +173,41 @@
     border-radius: 8px;
     
   }
+
+  .preview-btn{
+    border-radius: 4%;
+  height: 50px;
+  width: 120px;
+  font-size: 15px;
+  margin-bottom: 1%;
+  border: none;
+  color: #fff;
+  
+  }
+
+  
+
+  .mat-dialog-container3 {
+    padding: 30px;
+    width: 500px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+  }
+  
+  .button-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .preview-btn2 {
+    background-color: rgb(239, 105, 216);
+    white-space: nowrap; /* Prevent button text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Display ellipsis (...) for text overflow */
+    margin: 5px; /* Add margin for spacing */
+    flex-grow: 1; /* Allow the button to grow to fill available space */
+  border: none;
+  color: #fff;
+  }
+  

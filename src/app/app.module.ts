@@ -8,9 +8,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { HttpClientModule } from '@angular/common/http';
-//import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import * as fileType from 'file-type';
+
 
 @NgModule({
   declarations: [

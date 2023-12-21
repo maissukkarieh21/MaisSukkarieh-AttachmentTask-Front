@@ -27,16 +27,16 @@ export class EmployeeService {
     return this.http.get(url, { responseType: 'arraybuffer' });
   }
 
-  getAttachmentById(id:number): Observable<ArrayBuffer> {
-    const url = `https://localhost:7051/api/Attachment/GetAttachmentsByEmployeeIdAndId/${id}`;
-    return this.http.get(url, { responseType: 'arraybuffer' });
-  }
+  
 
   
 //---------------------------------------------------------------------------------------------------
-  downloadAttachment(attachmentId: number): Observable<Blob> {
-    return this.http.get(`https://localhost:7051/api/Attachment/downloadAttachment/${attachmentId}`, { responseType: 'blob' });
-  }
+
+
+downloadAttachment(attachmentId: number): Observable<Blob> {
+  return this.http.get(`https://localhost:7051/api/Attachment/downloadAttachment/${attachmentId}`, { responseType: 'blob' });
+}
+
 
   uploadAttachment(attachments: File[]): Observable<any> {
     const formData = new FormData();
@@ -52,5 +52,10 @@ export class EmployeeService {
 
   getAttachmentsByGroupId(groupId : number):Observable<any>{
     return this.http.get('https://localhost:7051/api/Attachment/attachmentDetails/'+groupId)
+  }
+
+  getAttachmentById(id:number): Observable<ArrayBuffer> {
+    const url = `https://localhost:7051/api/Attachment/GetAttachmentsByEmployeeIdAndId/${id}`;
+    return this.http.get(url, { responseType: 'arraybuffer' });
   }
 }

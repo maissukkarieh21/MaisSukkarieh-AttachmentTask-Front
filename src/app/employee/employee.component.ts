@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { ImageViewerConfig, CustomEvent } from 'ngx-image-viewer';
+
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -21,7 +21,9 @@ export class EmployeeComponent implements OnInit{
   attachment:any;
   attachmentIds: any;
   pdfSrc: any;
-
+  selectedImage: File | null = null;
+  imageUrl: any;
+  
   @ViewChild('callCreateDialog') callCreateDialog! :TemplateRef<any>
   @ViewChild('attachmentPreviewDialog') attachmentPreviewDialog!: TemplateRef<any>;
   @ViewChild('preview') preview!: TemplateRef<any>;
@@ -127,7 +129,7 @@ export class EmployeeComponent implements OnInit{
         const blob = new Blob([data], { type: contentDispositionHeader });
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
-        //link.download = 'attachmentFileName';
+        link.download = this.attachment.name;
         link.click();
       },
       (error) => {
@@ -135,6 +137,18 @@ export class EmployeeComponent implements OnInit{
       }
     );
   }
+
+ getAttachmentById(attachmentId:number):void{
+  //this.dialog.open(this.preview);
+  this.employeeService.downloadAttachment(attachmentId).subscribe(
+    (attachment)=>{
+      this.attachment = attachment;
+      console.log(attachment);
+    }
+  )
+ }
+
+ 
   
   
   getAttachmentsByGroupId(groupId:number):void{
@@ -157,7 +171,7 @@ export class EmployeeComponent implements OnInit{
 
   previewFile(attachment: any): void {
     const decodedData = atob(attachment.fileData);
-    this.pdfSrc = { data: decodedData, format: 'pdf', };
+    this.pdfSrc = { data: decodedData, format: 'png', };
     this.dialog.open(this.preview);
   }
   private base64ToUint8Array(base64: string): Uint8Array {
@@ -172,7 +186,16 @@ export class EmployeeComponent implements OnInit{
     return bytes;
   }
 
+  previewImage(file: File): void {
+    this.dialog.open(this.attachmentPreviewDialog);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
+    reader.onload = () => {
+      this.imageUrl = reader.result;
+    };
+    console.log()
+  }
 
   
   
