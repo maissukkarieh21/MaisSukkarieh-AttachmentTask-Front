@@ -52,7 +52,7 @@
 
 
                                                 <td>
-                                                    <button (click)="getAttachmentsForEmployee(employee.id)">Preview Attachments</button>
+                                                    <button (click)="getAttachmentsByGroupId(employee.attachmentsGroupId)">Preview Attachments</button>
                                                 </td>
 
                                             </tr>
@@ -231,8 +231,11 @@
                                       </div>
                                     </ng-template>
                                   <ng-template #attachmentPreviewDialog>
+                                    <div class="mat-dialog-container">
+
                                     <div *ngFor="let attachment of attachments">
                                       <button>{{attachment.name}}</button>
+                                    </div>
                                     </div>
                                   </ng-template>
                         </div>

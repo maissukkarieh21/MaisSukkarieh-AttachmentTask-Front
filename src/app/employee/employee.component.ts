@@ -168,4 +168,16 @@ export class EmployeeComponent implements OnInit{
     );
   }
 
+  getAttachmentsByGroupId(groupId:number):void{
+    this.dialog.open(this.attachmentPreviewDialog);
+
+    this.employeeService.getAttachmentsByGroupId(groupId).subscribe(
+      (response)=>{
+        console.log(response);
+      }
+      
+    )
+
+  }
+
 }

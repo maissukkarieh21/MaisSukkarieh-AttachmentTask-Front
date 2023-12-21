@@ -49,4 +49,8 @@ export class EmployeeService {
   addEmployee(employeeData:any):Observable<any>{
     return this.http.post('https://localhost:7051/api/AttachmentsGroup/addEmployeeWithAttachments/', employeeData);
   }
+
+  getAttachmentsByGroupId(groupId : number):Observable<any>{
+    return this.http.get('https://localhost:7051/api/Attachment/attachmentDetails/'+groupId)
+  }
 }
